@@ -1,0 +1,47 @@
+html,body{
+    background-image: url('../../static/papeldeparede.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Numans', sans-serif;
+}
+
+.container{
+    height: 100%;
+    align-content: center;
+}
+
+.card{
+/*    height: 370px; */
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 800px;
+    color: white;
+    background-color: rgba(0,0,0,0.7) !important;
+}
+
+.no-bullet-list {
+    list-style-type: none;
+}
+
+input[type=text] {
+    width:100%;
+}
+
+input[type=submit] {
+    width:100%;
+}
+
+select {
+    width:100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    align-content: left;
+}
+
+th {
+    width:35%;
+}

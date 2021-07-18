@@ -1,0 +1,34 @@
+{% extends "cab.html" %}
+
+{% load static %}
+
+{% block cab %}
+<br>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <H3>Cursos:</H3>
+            <table class="table table-striped table-bordered">
+
+                <tr>
+                    <th>#</th><th>Nome</th>
+
+                {% for curso in cursos %}
+
+                    <tr>
+                        <td>{{ forloop.counter }}</td><td><a href="{% url 'adm:turmas' curso.id %}">{{ curso.nome }}</a></td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

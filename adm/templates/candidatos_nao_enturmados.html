@@ -1,0 +1,45 @@
+{% extends "cab.html" %}
+
+{% load template_filters %}
+
+{% load static %}
+
+{% block cab %}
+<br>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col">
+
+            <H3>Relação de candidatos não enturmados:</H3>
+            <table class="table table-striped table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>#</th><th>Nome</th><th>CPF</th><th>Celular</th><th>Dt. Inscrição</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for c_n_e in candidatos_nao_enturmados %}
+
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ c_n_e.candidato.nome }}</td>
+                            <td>{{ c_n_e.candidato.cpf | formata_cpf }}</td>
+                            <td>{{ c_n_e.candidato.celular | formata_tel }}</td>
+                            <td>{{ c_n_e.candidato.dt_inclusao | date:"SHORT_DATETIME_FORMAT" }}</td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

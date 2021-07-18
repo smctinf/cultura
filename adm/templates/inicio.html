@@ -1,0 +1,27 @@
+{% extends "cab.html" %}
+
+{% load static %}
+
+{% block cab %}
+<br>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <p class="text-justify">
+            Sistema de gestão dos cursos da Oficina Escola Artes
+            </p>
+        </div>
+
+        <div class="col-sm-6">
+            <h2>Gestão dos cursos:</h2>
+            <ul>
+                <li><a href="{% url 'adm:cursos' %}">Cursos</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

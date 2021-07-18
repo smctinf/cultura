@@ -1,0 +1,36 @@
+{% extends "cab.html" %}
+
+{% load static %}
+
+{% block cab %}
+<br>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <p class="text-justify">
+            Sistema de gestão dos cursos da Oficina Escola Artes
+            </p>
+        </div>
+
+        <div class="col-sm-6">
+
+            Conta:
+            <ul>
+                <li><a href="{% url 'adm:change_password' %}">Alterar senha</a></li>
+            </ul>
+
+            {% if user.is_superuser %}
+            Administração:
+            <ul>
+                <li><a href="/admin" target="_blank">Administração</a></li>
+            </ul>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

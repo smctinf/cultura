@@ -1,0 +1,45 @@
+{% extends "cab.html" %}
+
+{% load static %}
+
+{% block cab %}
+<br>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <H3>Totais de alunos enturmados por cursos:</H3>
+            <table class="table table-striped table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>Curso</th><th>Total</th>
+                    </tr>
+                <thead>
+
+                <tbody>
+                    {% for total in totais %}
+
+                        <tr>
+                            <td>{{ total.curso.nome }}</td><td>{{ total.total }}</td>
+                        </tr>
+
+                    {% endfor %}
+                <tbody>
+
+                <tfoot>
+                    <tr>
+                        <td>Total de Alunos Enturmados:</td><td>{{ total_enturmacao }}</td>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
