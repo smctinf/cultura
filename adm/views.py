@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
-from .forms import *
-
+# from django.core.exceptions import ObjectDoesNotExist
+from .functions import *
 
 from django.db.models import Count
 
@@ -162,6 +162,68 @@ def candidatosNaoEnturmados(request):
             candidatos_nao_enturmados.append({'candidato': candidato})
 
     return render(request, 'candidatos_nao_enturmados.html', { 'total': total, 'candidatos_nao_enturmados': candidatos_nao_enturmados })
+
+
+
+@login_required
+def gera_emails(request):
+    turmas_alunos = Turma_Aluno.objects.all()
+
+    for turma_aluno in turmas_alunos:
+        nome = tira_acento(turma_aluno.aluno.nome.split(' ')[0])
+        try:
+            aluno = Aluno(
+                candidato = turma_aluno.aluno,
+                email_google = nome + '.c' + str(turma_aluno.aluno.id),
+            )
+            aluno.save()
+        except Exception as e:
+            print(turma_aluno, ' - ', e)
+
+    messages.error(request, 'Emails criados. Necessário gerar arquivo para importação no painel de administração do Google Workspace')
+
+    return render(request, 'inicio.html')
+
+
+
+@login_required
+def gera_google(request):
+
+    cab = 'First Name [Required],Last Name [Required],Email Address [Required],Password [Required],Org Unit Path [Required],Employee ID,Employee Title,Change Password at Next Sign-In\n'
+
+    arquivo = open("alunos_com ano.csv", "w")
+    arquivo.write(cab)
+
+
+    alunos = Aluno.objects.all()
+
+    for aluno in alunos:
+        email_google = aluno.email_google + '@sme.novafriburgo.rj.gov.br'
+        nome_aux = aluno.candidato.nome.split(' ')
+        ultimo_nome = nome_aux[-1:][0]
+        prim_nome = nome_aux[0:(len(nome_aux) - 1)]
+        prim_nome = ' '.join(prim_nome)
+
+        if prim_nome == '':
+            prim_nome = ultimo_nome
+
+        codigo = str(aluno.candidato.id)
+        print(ultimo_nome, prim_nome)
+
+        try:
+            x = '"' + prim_nome + '","' + ultimo_nome + '","' + email_google + '",abcdef' + codigo + ',"/Secretaria Municipal de Cultura/Alunos Sec. de Cultura",'
+            x = x + str(aluno.id) + ',"Aluno da Sec. de Cultura",True\n'
+            arquivo.write(x)
+
+        except Exception as e:
+            print(aluno, ' - ', e)
+
+    messages.error(request, 'Arquivo criado. Importar no Google Workspace')
+
+    arquivo.close()
+
+    return render(request, 'inicio.html')
+
 
 
 # ===========================================

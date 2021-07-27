@@ -83,6 +83,21 @@ class Candidato(models.Model):
 
 
 
+class Aluno(models.Model):
+
+    class Meta:
+        ordering = ['candidato']
+
+    def __str__(self):
+        return '%s' % (self.candidato)
+
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE)
+    email_google = models.CharField(max_length=250, verbose_name='E-Mail no Google')
+    ativo = models.BooleanField(default=True)
+    dt_inclusao = models.DateTimeField(auto_now_add=True, verbose_name='Dt. Inclusão')
+
+
+
 class Instrutor(models.Model):
     def __str__(self):
         return self.nome

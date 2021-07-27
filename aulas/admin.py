@@ -31,6 +31,13 @@ class CandidatoAdmin(admin.ModelAdmin):
 
 admin.site.register(Candidato, CandidatoAdmin)
 
+class AlunoAdmin(admin.ModelAdmin):
+    list_display = ['candidato', 'email_google', 'ativo', 'dt_inclusao']
+#    list_filter = ['curso']
+    search_fields = ['candidato_nome']
+
+admin.site.register(Aluno, AlunoAdmin)
+
 class InstrutorAdmin(admin.ModelAdmin):
     list_display = ['nome', 'dt_inclusao']
     search_fields = ['nome']

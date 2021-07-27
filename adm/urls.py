@@ -18,6 +18,9 @@ urlpatterns = [
     path('turma_alunos/<int:turma_id>', views.turma_alunos, name='turma_alunos'),
     path('turma_alunos_inclui/<int:turma_id>', views.turma_alunos_inclui, name='turma_alunos_inclui'),
     #
+    path('gera_emails/', views.gera_emails, name='gera_emails'),
+    path('gera_google/', views.gera_google, name='gera_google'),
+    #
     path('change_password', views.change_password, name='change_password'),
     path('sair', views.sair, name='sair'),
 ]
